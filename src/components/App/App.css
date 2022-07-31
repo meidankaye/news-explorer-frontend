@@ -2,3 +2,9 @@
   max-width: 1440px;
   margin: 0 auto;
 }
+
+.app__background {
+  background-image: url("../../images/Main-Background.png");
+  background-position-x: center;
+  background-repeat: no-repeat;
+}
