@@ -1,0 +1,47 @@
+.footer {
+  font-family: "Roboto", sans-serif;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 104px;
+}
+
+.footer__text {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 400;
+  color: #b6bcbf;
+}
+
+.footer__nav {
+  display: flex;
+  width: 416px;
+}
+
+.footer__link {
+  text-decoration: none;
+  color: #1a1b22;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.footer__page-links {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 40px;
+  max-width: 304px;
+  width: 100%;
+}
+
+.footer__social-box {
+  width: 72px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer__link-social {
+  width: 24px;
+  height: 24px;
+}

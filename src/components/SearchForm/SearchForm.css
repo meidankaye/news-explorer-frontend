@@ -16,7 +16,8 @@
   border: 1px solid #d1d2d6;
   border-radius: 100px;
   outline: none;
-  width: 85%;
+  width: 100%;
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
 }
 
