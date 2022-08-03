@@ -1,7 +1,7 @@
 .about {
   display: flex;
   color: #1a1b22;
-  padding: 80px;
+  padding: 80px 104px;
 }
 
 .about__image {

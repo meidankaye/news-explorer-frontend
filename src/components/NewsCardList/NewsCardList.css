@@ -1,0 +1,24 @@
+.news-card-list {
+  color: #1a1b22;
+  display: flex;
+  flex-direction: column;
+  padding: 80px 104px;
+  position: relative;
+}
+
+.news-card-list__title {
+  font-family: "Roboto-slab", sans-serif;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 46px;
+  margin: 0;
+}
+
+.news-card-list__container {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(150px, 1fr));
+  list-style: none;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+}
