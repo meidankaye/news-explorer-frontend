@@ -27,10 +27,10 @@ function NewsCard() {
             me. This advice, which Louv attributes to nature educator Jon Young,
             is for both adults and children to find...
           </p>
+          <a className="news-card__source" href="/">
+            treehugger
+          </a>
         </div>
-        <a className="news-card__source" href="/">
-          treehugger
-        </a>
       </article>
     </li>
   );
