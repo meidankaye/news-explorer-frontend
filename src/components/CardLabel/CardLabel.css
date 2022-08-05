@@ -1,0 +1,60 @@
+.label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  gap: 5px;
+}
+
+.label__popup {
+  min-width: 182px;
+}
+
+.label__popup .label__text {
+  font-size: 12px;
+  line-height: 14px;
+  padding: 13px 20px;
+}
+
+.label__text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.label__button {
+  border: none;
+  border-radius: 8px;
+  background-color: #fff;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 10px 12.5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.label__icon {
+  display: block;
+  width: 15px;
+  height: 20px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.label__left {
+  top: 24px;
+  left: 24px;
+  right: 0;
+  max-width: 87px;
+}
