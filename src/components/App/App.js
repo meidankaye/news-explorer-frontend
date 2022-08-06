@@ -6,6 +6,7 @@ import Navigation from "../Navigation/Navigation";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
+import PopupWithForm from "../PopupWithForm/PopupWithForm";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route index path="/" element={<Main />} />
         <Route path="/saved-news" element={<SavedNewsHeader />} />
       </Routes>
+      <PopupWithForm />
       <Footer />
     </div>
   );

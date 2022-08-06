@@ -1,7 +1,9 @@
 import "./Main.css";
 import SearchForm from "../SearchForm/SearchForm";
 import About from "../About/About";
-import NewsCardList from "../NewsCardList/NewsCardList";
+// import NewsCardList from "../NewsCardList/NewsCardList";
+// import Preloader from "../Preloader/Preloader";
+import NothingFound from "../NothingFound/NothingFound";
 
 function Main() {
   return (
@@ -14,7 +16,9 @@ function Main() {
         </p>
         <SearchForm />
       </div>
-      <NewsCardList />
+      <NothingFound />
+      {/* <Preloader /> */}
+      {/* <NewsCardList /> */}
       <About />
     </section>
   );
