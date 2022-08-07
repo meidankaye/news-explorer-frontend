@@ -24,3 +24,19 @@
   line-height: 24px;
   margin: 32px 0 88px;
 }
+
+@media screen and (max-width: 1000px) {
+  .main__content {
+    margin: 38px auto;
+    max-width: 452px;
+  }
+
+  .main__title {
+    font-size: 36px;
+    line-height: 40px;
+  }
+
+  .main__subtitle {
+    margin: 16px 0 48px;
+  }
+}

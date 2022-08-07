@@ -13,12 +13,17 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 22px;
+  color: #1a1b22;
   border: 1px solid #d1d2d6;
   border-radius: 100px;
   outline: none;
   width: 100%;
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
+}
+
+.search-form__input::placeholder {
+  color: #b6bcbf;
 }
 
 .search-form__button {
@@ -45,4 +50,10 @@
 
 .search-form__button:active {
   background-color: #2a65cc;
+}
+
+@media screen and (max-width: 1000px) {
+  .search-form {
+    height: 48px;
+  }
 }
