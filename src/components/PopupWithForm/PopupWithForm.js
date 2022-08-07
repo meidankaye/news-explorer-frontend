@@ -1,10 +1,14 @@
 import "./PopupWithForm.css";
 
-function PopupWithForm() {
+function PopupWithForm({ isOpen, onClose }) {
   return (
-    <div className="popup popup_active">
+    <div className={`popup ${isOpen ? "popup_opened" : ""}`}>
       <div className="popup__container">
-        <button type="button" className="popup__close-button"></button>
+        <button
+          type="button"
+          className="popup__close-button"
+          onClick={onClose}
+        ></button>
         <h2 className="popup__title">Sign in</h2>
         <form className="popup__form">
           <label className="popup__label">
