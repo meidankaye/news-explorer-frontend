@@ -16,7 +16,8 @@
 
 .footer__nav {
   display: flex;
-  width: 416px;
+  min-width: 416px;
+  max-height: 22px;
 }
 
 .footer__link {
@@ -36,7 +37,7 @@
 }
 
 .footer__social-box {
-  width: 72px;
+  min-width: 72px;
   display: flex;
   justify-content: space-between;
 }
@@ -44,4 +45,32 @@
 .footer__link-social {
   width: 24px;
   height: 24px;
+}
+
+@media screen and (max-width: 1000px) {
+  .footer {
+    padding: 0 40px;
+    height: 64px;
+  }
+
+  .footer__text {
+    max-height: 22px;
+    min-width: 300px;
+  }
+
+  .footer__nav {
+    min-width: 360px;
+  }
+
+  .footer__page-links {
+    max-width: 264px;
+    max-height: 22px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .footer {
+    flex-direction: column;
+    padding: 20px 16px;
+  }
 }

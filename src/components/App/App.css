@@ -22,6 +22,12 @@
   }
 }
 
+@media screen and (max-width: 650px) {
+  .app__background {
+    background-size: auto 536px;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .app__background {
     background-image: url(../../images/Main-Background-Mobile.png);
