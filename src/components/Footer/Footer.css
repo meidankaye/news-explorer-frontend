@@ -2,6 +2,7 @@
   font-family: "Roboto", sans-serif;
   height: 80px;
   display: flex;
+  flex-direction: row-reverse;
   align-items: center;
   justify-content: space-between;
   padding: 0 104px;
@@ -72,5 +73,23 @@
   .footer {
     flex-direction: column;
     padding: 20px 16px;
+    height: 132px;
+  }
+
+  .footer__text {
+    min-width: 288px;
+    margin-top: 38px;
+  }
+
+  .footer__nav {
+    min-width: 288px;
+    max-height: 74px;
+  }
+
+  .footer__page-links {
+    flex-direction: column;
+    min-width: 200px;
+    margin-right: 16px;
+    min-height: 74px;
   }
 }

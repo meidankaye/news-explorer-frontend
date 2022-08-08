@@ -66,6 +66,8 @@
     flex-direction: column;
     align-items: center;
     padding: 32px 24px 128px;
+    max-width: 288px;
+    align-self: center;
   }
 
   .about__image {

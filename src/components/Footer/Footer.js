@@ -5,9 +5,6 @@ import fbLogo from "../../images/fb-logo.svg";
 function Footer() {
   return (
     <footer className="footer">
-      <span className="footer__text">
-        &copy; {new Date().getFullYear()} SuperSite, Powered by News API
-      </span>
       <nav className="footer__nav">
         <div className="footer__page-links">
           <a className="footer__link" href="/">
@@ -32,6 +29,9 @@ function Footer() {
           </a>
         </div>
       </nav>
+      <span className="footer__text">
+        &copy; {new Date().getFullYear()} SuperSite, Powered by News API
+      </span>
     </footer>
   );
 }
