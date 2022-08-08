@@ -9,8 +9,6 @@ function NewsCardList({ children }) {
         <NewsCard />
         <NewsCard />
         <NewsCard />
-        <NewsCard />
-        <NewsCard />
       </ul>
       <button className="news-card-list__button">Show more</button>
     </section>

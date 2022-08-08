@@ -8,7 +8,7 @@
 
 .search-form__input {
   font-family: "Roboto", sans-serif;
-  padding-left: 24px;
+  padding: 0 0 0 24px;
   background: #ffffff;
   font-weight: 400;
   font-size: 16px;
@@ -55,5 +55,25 @@
 @media screen and (max-width: 1000px) {
   .search-form {
     height: 48px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .search-form {
+    height: 128px;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .search-form__input {
+    height: 56px;
+    padding-left: 16px;
+    margin-bottom: 16px;
+  }
+
+  .search-form__button {
+    position: static;
+    height: 56px;
+    width: 100%;
   }
 }

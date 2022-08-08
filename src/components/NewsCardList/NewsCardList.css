@@ -45,3 +45,29 @@
 .news-card-list__button:hover {
   background-color: #e8e8e8;
 }
+
+@media screen and (max-width: 1000px) {
+  .news-card-list {
+    padding: 40px;
+  }
+
+  .news-card-list__title {
+    font-size: 30px;
+    line-height: 34px;
+  }
+
+  .news-card-list__container {
+    max-width: 688px;
+    gap: 8px;
+    align-self: center;
+  }
+  
+  .news-card-list__button {
+    margin-top: 32px;
+    max-width: 240px;
+    height: 56px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+}

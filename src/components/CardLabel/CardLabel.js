@@ -5,9 +5,9 @@ function CardLabel() {
   return (
     <>
       <div className="label">
-        <div className="label__popup">
+        {/* <div className="label__popup">
           <span className="label__text">Sign in to save articles</span>
-        </div>
+        </div> */}
         <button className="label__button" type="button">
           <img
             className="label__icon"

@@ -8,6 +8,7 @@
   background-color: #fff;
   cursor: pointer;
   position: relative;
+  overflow: hidden;
 }
 
 .news-card__image {
@@ -61,4 +62,17 @@
   text-transform: uppercase;
   color: #b6bcbf;
   text-decoration: none;
+}
+
+@media screen and (max-width: 1000px) {
+  .news-card {
+    max-width: 224px;
+  }
+
+  .news-card__image-box {
+    height: 150px;
+  }
+}
+
+@media screen and (max-width: 650px) {
 }

@@ -58,3 +58,14 @@
   right: 0;
   max-width: 87px;
 }
+
+
+@media screen and (max-width: 1000px) {
+  .label {
+    top: 8px;
+    right: 8px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+}

@@ -21,3 +21,10 @@
     background-size: auto 400px;
   }
 }
+
+@media screen and (max-width: 320px) {
+  .app__background {
+    background-image: url(../../images/Main-Background-Mobile.png);
+    background-size: auto;
+  }
+}
