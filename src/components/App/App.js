@@ -21,15 +21,23 @@ function App() {
   }
 
   useEffect(() => {
+    const handleClickClose = (e) => {
+      if (e.target.classList.contains('popup_opened')) {
+        closeAllPopups();
+      }
+    }
+
     const handleEscClose = (e) => {
       if (e.key === 'Escape') {
         closeAllPopups();
       }
     };
     if (isPopupOpen) {
+      document.addEventListener('mousedown', handleClickClose);
       document.addEventListener('keydown', handleEscClose);
     }
     return () => {
+      document.removeEventListener('mousedown', handleClickClose);
       document.removeEventListener('keydown', handleEscClose);
     }
   }, [isPopupOpen]);
