@@ -145,3 +145,27 @@
   color: #2f71e5;
   cursor: pointer;
 }
+
+@media screen and (max-width: 1000px) {
+  .popup__container {
+    max-width: 430px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .popup__container {
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  .popup__close-button {
+    width: 24px;
+    height: 24px;
+    right: 16px;
+    top: -40px;
+  }
+
+  .popup__form {
+    max-width: 288px;
+  }
+}

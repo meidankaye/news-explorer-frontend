@@ -8,6 +8,7 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
+import UserMenu from "../UserMenu/UserMenu";
 
 function App() {
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
@@ -48,6 +49,7 @@ function App() {
         <Navigation>
           <HeaderButton onHeaderButtonClick={handleHeaderButtonClick} />
         </Navigation>
+        <UserMenu />
       </Header>
       <Routes>
         <Route index path="/" element={<Main />} />

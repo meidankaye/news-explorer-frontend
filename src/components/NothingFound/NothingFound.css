@@ -31,4 +31,6 @@
   line-height: 24px;
   color: #b6bcbf;
   padding-bottom: 80px;
+  max-width: 350px;
+  text-align: center;
 }

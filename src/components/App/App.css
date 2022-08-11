@@ -2,6 +2,8 @@
   max-width: 1440px;
   margin: 0 auto;
   color: #fff;
+  display: flex;
+  flex-direction: column;
 }
 
 .app__background {
