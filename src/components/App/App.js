@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import React from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
 import Header from "../Header/Header";
 import HeaderButton from "../HeaderButton/HeaderButton";
@@ -11,7 +11,15 @@ import PopupWithForm from "../PopupWithForm/PopupWithForm";
 import UserMenu from "../UserMenu/UserMenu";
 
 function App() {
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [mainBackground, setMainBackground] = React.useState(false);
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
+
+  const location = useLocation();
+
+  React.useEffect(() => {
+    location.pathname === "/" ? setMainBackground(true) : setMainBackground("");
+  }, [location.pathname]);
 
   function handleHeaderButtonClick() {
     setIsPopupOpen(true);
@@ -21,30 +29,30 @@ function App() {
     setIsPopupOpen(false);
   }
 
-  useEffect(() => {
+  React.useEffect(() => {
     const handleClickClose = (e) => {
-      if (e.target.classList.contains('popup_opened')) {
+      if (e.target.classList.contains("popup_opened")) {
         closeAllPopups();
       }
-    }
+    };
 
     const handleEscClose = (e) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         closeAllPopups();
       }
     };
     if (isPopupOpen) {
-      document.addEventListener('mousedown', handleClickClose);
-      document.addEventListener('keydown', handleEscClose);
+      document.addEventListener("mousedown", handleClickClose);
+      document.addEventListener("keydown", handleEscClose);
     }
     return () => {
-      document.removeEventListener('mousedown', handleClickClose);
-      document.removeEventListener('keydown', handleEscClose);
-    }
+      document.removeEventListener("mousedown", handleClickClose);
+      document.removeEventListener("keydown", handleEscClose);
+    };
   }, [isPopupOpen]);
 
   return (
-    <div className="app app__background">
+    <div className={`app ${mainBackground && "app__background"}`}>
       <Header>
         <Navigation>
           <HeaderButton onHeaderButtonClick={handleHeaderButtonClick} />
@@ -52,8 +60,11 @@ function App() {
         <UserMenu />
       </Header>
       <Routes>
-        <Route index path="/" element={<Main />} />
-        <Route path="/saved-news" element={<SavedNewsHeader />} />
+        <Route index path="/" element={<Main loggedIn={loggedIn} />} />
+        <Route
+          path="/saved-news"
+          element={<SavedNewsHeader loggedIn={loggedIn} />}
+        />
       </Routes>
       <PopupWithForm isOpen={isPopupOpen} onClose={closeAllPopups} />
       <Footer />

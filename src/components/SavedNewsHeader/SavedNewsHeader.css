@@ -6,7 +6,6 @@
   font-size: 18px;
   line-height: 24px;
   color: #1a1b22;
-  align-self: center;
 }
 
 .saved-news-header__subtitle {
@@ -35,6 +34,7 @@
     padding: 24px 40px 32px;
     font-size: 14px;
     line-height: 24px;
+    align-self: center;
   }
 
   .saved-news-header__title {
