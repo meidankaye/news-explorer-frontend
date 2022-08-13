@@ -12,14 +12,19 @@ import UserMenu from "../UserMenu/UserMenu";
 
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [mainBackground, setMainBackground] = React.useState(false);
+  const [pageTheme, setpageTheme] = React.useState(false);
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
+  const [isMenuPopupOpen, setIsMenuPopupOpen] = React.useState(false);
 
   const location = useLocation();
 
   React.useEffect(() => {
-    location.pathname === "/" ? setMainBackground(true) : setMainBackground("");
+    location.pathname === "/" ? setpageTheme(true) : setpageTheme("");
   }, [location.pathname]);
+
+  function handleMenuClick(boolean) {
+    setIsMenuPopupOpen(boolean);
+  }
 
   function handleHeaderButtonClick() {
     setIsPopupOpen(true);
@@ -27,6 +32,7 @@ function App() {
 
   function closeAllPopups() {
     setIsPopupOpen(false);
+    setIsMenuPopupOpen(false);
   }
 
   React.useEffect(() => {
@@ -52,9 +58,18 @@ function App() {
   }, [isPopupOpen]);
 
   return (
-    <div className={`app ${mainBackground && "app__background"}`}>
-      <Header>
-        <Navigation>
+    <div className={`app ${pageTheme && "app__background"}`}>
+      <Header
+        theme={pageTheme}
+        openPopup={handleMenuClick}
+        isOpen={isMenuPopupOpen}
+      >
+        <Navigation
+          loggedIn={loggedIn}
+          theme={pageTheme}
+          isOpen={isMenuPopupOpen}
+          onClose={closeAllPopups}
+        >
           <HeaderButton onHeaderButtonClick={handleHeaderButtonClick} />
         </Navigation>
         <UserMenu />
