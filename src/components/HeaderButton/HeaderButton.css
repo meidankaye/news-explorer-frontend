@@ -15,6 +15,11 @@
   cursor: pointer;
 }
 
+.header-button_dark {
+  border: 1px solid #1a1b22;
+  color: #1a1b22;
+}
+
 .header-button__signin {
   width: 150px;
   margin-right: 0;
@@ -25,8 +30,13 @@
   font-weight: 500;
   font-size: 18px;
   line-height: 24px;
-  color: #ffffff;
+  color: inherit;
   min-width: 56px;
+}
+
+.header-button__image {
+  max-width: 24px;
+  max-height: 24px;
 }
 
 @media screen and (max-width: 1000px) {
@@ -39,6 +49,11 @@
 
   .header-button__signin {
     width: 128px;
+  }
+
+  .header-button__username {
+    font-size: 16px;
+    line-height: 24px;
   }
 }
 

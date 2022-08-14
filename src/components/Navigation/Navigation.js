@@ -11,6 +11,7 @@ function Navigation({ children, loggedIn, theme, isOpen, onClose }) {
     navigate("/saved-news");
     onClose();
   }
+  loggedIn = true;
   return (
     <>
       <nav
@@ -42,7 +43,7 @@ function Navigation({ children, loggedIn, theme, isOpen, onClose }) {
         )}
         {children}
       </nav>
-      <div className={`${isOpen ? "navigation__overlay" : ""}`}></div>
+      {isOpen && <div className="navigation__overlay"></div>}
     </>
   );
 }

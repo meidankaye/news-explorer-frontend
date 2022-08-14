@@ -69,7 +69,11 @@ function App() {
           isOpen={isMenuPopupOpen}
           onClose={closeAllPopups}
         >
-          <HeaderButton onHeaderButtonClick={handleHeaderButtonClick} />
+          <HeaderButton
+            loggedIn={loggedIn}
+            theme={pageTheme}
+            onHeaderButtonClick={handleHeaderButtonClick}
+          />
         </Navigation>
       </Header>
       <Routes>

@@ -93,5 +93,6 @@
     align-self: flex-start;
     max-height: 56px;
     margin: 0 0 22px;
+    text-align: left;
   }
 }
