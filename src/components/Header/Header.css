@@ -32,6 +32,7 @@
 .header__menu-button {
   all: unset;
   display: none;
+  position: relative;
   background-image: url(../../images/menu-white.svg);
   background-size: contain;
   height: 24px;
@@ -66,6 +67,8 @@
   .header {
     min-height: 56px;
     padding: 0 16px;
+    z-index: 2;
+    position: relative;
   }
 
   .header_hidden {

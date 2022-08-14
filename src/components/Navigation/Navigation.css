@@ -61,12 +61,37 @@
     flex-direction: column;
     position: absolute;
     width: 100%;
+    max-width: calc(100vw - 32px);
     left: 0;
     top: 56px;
     padding: 16px 16px 24px;
+    font-size: 18px;
+    line-height: 56px;
+    font-weight: 500;
+    z-index: 2;
+  }
+
+  .navigation__overlay {
+    position: absolute;
+    top: 230px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: #1a1b22;
+    z-index: 0;
+    height: 100vh;
+    opacity: 0.5;
   }
 
   .navigation_clicked {
     display: flex;
+  }
+
+  .navigation__page-button {
+    border: none;
+    padding: 0;
+    align-self: flex-start;
+    max-height: 56px;
+    margin: 0 0 22px;
   }
 }

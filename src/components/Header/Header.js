@@ -9,8 +9,8 @@ function Header({ children, theme, isOpen, openPopup }) {
   return (
     <header
       className={`header ${
-        isOpen && (theme ? "header_theme_dark" : "header_theme_light")
-      } ${!theme && "header_text_dark"}`}
+        isOpen ? (theme ? "header_theme_dark" : "header_theme_light") : ""
+      } ${!theme ? "header_text_dark" : ""}`}
     >
       <span className="header__logo" onClick={() => navigate("/")}>
         NewsExplorer
@@ -19,12 +19,13 @@ function Header({ children, theme, isOpen, openPopup }) {
       <button
         onClick={handleClick}
         className={`header__menu-button ${
-          !theme && "header__menu-button_dark"
+          !theme ? "header__menu-button_dark" : ""
         } ${
-          isOpen &&
-          (theme
-            ? "header__menu-button_cross"
-            : "header__menu-button_cross_dark")
+          isOpen
+            ? theme
+              ? "header__menu-button_cross"
+              : "header__menu-button_cross_dark"
+            : ""
         }`}
         type="button"
       ></button>

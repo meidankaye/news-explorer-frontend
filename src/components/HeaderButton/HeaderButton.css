@@ -41,3 +41,16 @@
     width: 128px;
   }
 }
+
+@media screen and (max-width: 650px) {
+  .header-button {
+    font-size: 18px;
+    line-height: 56px;
+    height: 56px;
+    padding: 0;
+  }
+
+  .header-button__signin {
+    width: 288px;
+  }
+}

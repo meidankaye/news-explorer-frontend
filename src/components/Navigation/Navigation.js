@@ -12,33 +12,38 @@ function Navigation({ children, loggedIn, theme, isOpen, onClose }) {
     onClose();
   }
   return (
-    <nav
-      className={`navigation ${
-        isOpen && (theme ? "navigation_theme_dark" : "navigation_theme_light")
-      } ${isOpen && "navigation_clicked"}`}
-    >
-      <button
-        className={`navigation__page-button ${
-          theme && "navigation__page-button_active"
-        }`}
-        onClick={routeToMain}
+    <>
+      <nav
+        className={`navigation ${
+          isOpen
+            ? theme
+              ? "navigation_theme_dark"
+              : "navigation_theme_light"
+            : ""
+        } ${isOpen ? "navigation_clicked" : ""}`}
       >
-        Home
-      </button>
-      {loggedIn && (
         <button
           className={`navigation__page-button ${
-            theme
-              ? "navigation__link_inactive"
-              : "navigation__link_active"
+            theme && "navigation__page-button_active"
           }`}
-          onClick={routeToNews}
+          onClick={routeToMain}
         >
-          Saved articles
+          Home
         </button>
-      )}
-      {children}
-    </nav>
+        {loggedIn && (
+          <button
+            className={`navigation__page-button ${
+              theme ? "navigation__link_inactive" : "navigation__link_active"
+            }`}
+            onClick={routeToNews}
+          >
+            Saved articles
+          </button>
+        )}
+        {children}
+      </nav>
+      <div className={`${isOpen ? "navigation__overlay" : ""}`}></div>
+    </>
   );
 }
 

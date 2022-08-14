@@ -8,7 +8,6 @@ import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
-import UserMenu from "../UserMenu/UserMenu";
 
 function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
@@ -72,7 +71,6 @@ function App() {
         >
           <HeaderButton onHeaderButtonClick={handleHeaderButtonClick} />
         </Navigation>
-        <UserMenu />
       </Header>
       <Routes>
         <Route index path="/" element={<Main loggedIn={loggedIn} />} />
