@@ -16,8 +16,12 @@
 }
 
 .header-button_dark {
-  border: 1px solid #1a1b22;
+  border: 1px solid #d1d2d6;
   color: #1a1b22;
+}
+
+.header-button_dark:hover {
+  border-color: #1a1b22;
 }
 
 .header-button__signin {

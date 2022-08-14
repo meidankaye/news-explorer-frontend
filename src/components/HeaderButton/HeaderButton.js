@@ -1,6 +1,6 @@
 import "./HeaderButton.css";
 import logoutWhite from "../../images/logoutwhite.svg";
-import logoutBlack from "../../images/logout.svg";
+import logoutBlack from "../../images/logoutblack.svg";
 
 function HeaderButton({ loggedIn, theme, onHeaderButtonClick }) {
   loggedIn = true;

@@ -2,10 +2,12 @@ import "./Main.css";
 import SearchForm from "../SearchForm/SearchForm";
 import About from "../About/About";
 import NewsCardList from "../NewsCardList/NewsCardList";
+import NewsCard from "../NewsCard/NewsCard";
+import { cards } from "../../utils/constants";
 // import Preloader from "../Preloader/Preloader";
 // import NothingFound from "../NothingFound/NothingFound";
 
-function Main() {
+function Main({ loggedIn, cardCount }) {
   return (
     <section className="main">
       <div className="main__content">
@@ -18,7 +20,14 @@ function Main() {
       </div>
       {/* <NothingFound /> */}
       {/* <Preloader /> */}
-      <NewsCardList />
+      <NewsCardList cards={cards}>
+        {cards.length &&
+          cards
+            .slice(0, cardCount)
+            .map((card, i) => (
+              <NewsCard key={i} card={card} loggedIn={loggedIn} />
+            ))}
+      </NewsCardList>
       <About />
     </section>
   );

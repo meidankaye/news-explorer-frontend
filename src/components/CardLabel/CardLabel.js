@@ -1,4 +1,5 @@
 import "./CardLabel.css";
+import bookmarkGrey from "../../images/bookmark-grey.svg";
 import bookmarkBlack from "../../images/bookmark-black.svg";
 
 function CardLabel() {

@@ -14,12 +14,17 @@ function App() {
   const [pageTheme, setpageTheme] = React.useState(false);
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
   const [isMenuPopupOpen, setIsMenuPopupOpen] = React.useState(false);
+  const [cardCount, setCardCount] = React.useState(3);
 
   const location = useLocation();
 
   React.useEffect(() => {
     location.pathname === "/" ? setpageTheme(true) : setpageTheme("");
   }, [location.pathname]);
+
+  function handleCount() {
+    setCardCount((cardCount) => (cardCount += 3));
+  }
 
   function handleMenuClick(boolean) {
     setIsMenuPopupOpen(boolean);
@@ -77,7 +82,11 @@ function App() {
         </Navigation>
       </Header>
       <Routes>
-        <Route index path="/" element={<Main loggedIn={loggedIn} />} />
+        <Route
+          index
+          path="/"
+          element={<Main loggedIn={loggedIn} cardCount={cardCount} />}
+        />
         <Route
           path="/saved-news"
           element={<SavedNewsHeader loggedIn={loggedIn} />}
