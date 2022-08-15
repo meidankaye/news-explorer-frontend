@@ -13,6 +13,8 @@ function Footer() {
           <a
             className="footer__link"
             href="https://practicum.com/en-isr/?gclid=CjwKCAjwiJqWBhBdEiwAtESPaG-Yi1Douzg3PoUTqXMKp5X99BpuXWF7q_i6Hnj39Tn6cHvfDjfQURoCDtcQAvD_BwE"
+            target={"_blank"}
+            rel="noreferrer"
           >
             Practicum by Yandex
           </a>
@@ -21,10 +23,17 @@ function Footer() {
           <a
             className="footer__link footer__link-social"
             href="https://github.com/meidankaye"
+            target={"_blank"}
+            rel="noreferrer"
           >
             <img src={githubLogo} alt="Github logo" />
           </a>
-          <a className="footer__link footer__link-social" href="placeholder">
+          <a
+            className="footer__link footer__link-social"
+            href="placeholder"
+            target={"_blank"}
+            rel="noreferrer"
+          >
             <img src={fbLogo} alt="Facebook logo" />
           </a>
         </div>

@@ -1,9 +1,9 @@
 import "./CardLabel.css";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
-import bookmarkGrey from "../../images/bookmark-grey.svg";
+import bookmark from "../../images/bookmark-black.svg";
 import bookmarkBlue from "../../images/bookmark-blue.svg";
-import trashcan from "../../images/trash-grey.svg";
+import trashcan from "../../images/trash-black.svg";
 
 function CardLabel({ loggedIn }) {
   const isMain = useLocation().pathname === "/";
@@ -12,13 +12,12 @@ function CardLabel({ loggedIn }) {
   function handleBookmarkClick() {
     loggedIn && setIsMarked((isMarked) => !isMarked);
   }
+  // loggedIn = true;
   return (
     <>
-      <div className="label">
+      <div className="label label_right">
         <div className="label__popup">
-          <span className="label__text">
-            {isMain ? "Sign in to save articles" : "Remove from saved"}
-          </span>
+          {isMain ? "Sign in to save articles" : "Remove from saved"}
         </div>
         <button
           className="label__button"
@@ -27,11 +26,7 @@ function CardLabel({ loggedIn }) {
         >
           {isMain ? (
             !isMarked ? (
-              <img
-                className="label__icon"
-                src={bookmarkGrey}
-                alt="Bookmark icon"
-              />
+              <img className="label__icon" src={bookmark} alt="Bookmark icon" />
             ) : (
               <img
                 className="label__icon_marked"
@@ -40,13 +35,15 @@ function CardLabel({ loggedIn }) {
               />
             )
           ) : (
-            <img className="label__trash" src={trashcan} alt="Trash icon" />
+            <img className="label__icon" src={trashcan} alt="Trash icon" />
           )}
         </button>
       </div>
-      {/* <div className="label label__left">
-        <span className="label__text">Nature</span>
-      </div> */}
+      {!isMain && (
+        <div className="label label__left">
+          <span className="label__text">Placeholder</span>
+        </div>
+      )}
     </>
   );
 }

@@ -6,7 +6,7 @@
   flex-direction: column;
 }
 
-.app__background {
+.app_background {
   background-image: url("../../images/Main-Background.png");
   background-position-x: center;
   background-repeat: no-repeat;
@@ -19,19 +19,19 @@
     width: 100%;
   }
 
-  .app__background {
+  .app_background {
     background-size: auto 400px;
   }
 }
 
 @media screen and (max-width: 650px) {
-  .app__background {
+  .app_background {
     background-size: auto 536px;
   }
 }
 
 @media screen and (max-width: 320px) {
-  .app__background {
+  .app_background {
     background-image: url(../../images/Main-Background-Mobile.png);
     background-size: auto;
   }

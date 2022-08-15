@@ -1,66 +1,23 @@
 import "./PopupWithForm.css";
 
-function PopupWithForm({ isOpen, onClose }) {
+function PopupWithForm({ children, name, isOpen, title, onClose, onSubmit }) {
   return (
-    <div className={`popup ${isOpen ? "popup_opened" : ""}`}>
+    <div className={`popup popup_type_${name} ${isOpen ? "popup_opened" : ""}`}>
       <div className="popup__container">
         <button
           type="button"
           className="popup__close-button"
           onClick={onClose}
         ></button>
-        <h2 className="popup__title">Sign in</h2>
-        <form className="popup__form">
-          <label className="popup__label">
-            Email
-            <input
-              name="email"
-              className="popup__input"
-              type={"email"}
-              placeholder={"Enter email"}
-              required
-            ></input>
-          </label>
-          <span className="popup__input-error">Invalid email address</span>
-          <label className="popup__label">
-            Password
-            <input
-              name="password"
-              className="popup__input"
-              type={"password"}
-              placeholder={"Enter password"}
-              minLength="6"
-              required
-            ></input>
-          </label>
-          <span className="popup__input-error">
-            Please use at least 6 characters.
-          </span>
-          <label className="popup__label">
-            Username
-            <input
-              name="username"
-              className="popup__input"
-              type={"string"}
-              placeholder={"Enter your username"}
-              minLength="2"
-              required
-            ></input>
-          </label>
-          <span className="popup__input-error">
-            Please use at least 2 characters.
-          </span>
-          <span className="popup__response-error">
-            This email is not available
-          </span>
-          <button className="popup__submit-button" type="submit">
-            Sign up
-          </button>
+        <h2 className="popup__title">{title}</h2>
+        <form
+          noValidate
+          name={`form-${name}`}
+          className={`popup__form popup__form_type_${name}`}
+          onSubmit={onSubmit}
+        >
+          {children}
         </form>
-        <div className="popup__redirect-container">
-          <span>or</span>
-          <button className="popup__redirect-button">Sign in</button>
-        </div>
       </div>
     </div>
   );

@@ -3,20 +3,44 @@
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 24px;
-  right: 24px;
   gap: 5px;
 }
 
-.label__popup {
-  min-width: 182px;
+.label_right {
+  top: 24px;
+  right: 24px;
 }
 
-.label__popup .label__text {
+.label__left {
+  top: 24px;
+  left: 24px;
+  right: 0;
+  height: 40px;
+  max-width: 124px;
+  justify-content: flex-start;
+}
+
+.label__popup {
+  display: flex;
+  width: 182px;
+  height: 40px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
   font-size: 12px;
   line-height: 14px;
-  padding: 13px 20px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0px 10px 22px rgba(59, 74, 116, 0.1);
+  clip-path: polygon(100% 0, 100% 0%, 100% 100%, 100% 100%);
+  transition: clip-path 0.3s ease-out;
+  background-color: #FFFFFF;
 }
+
+.label_right:hover .label__popup {
+  clip-path: polygon(100% 0, 0 0, 0 100%, 100% 100%);
+}
+
 
 .label__text {
   display: flex;
@@ -37,7 +61,7 @@
   background-color: #fff;
   min-width: 40px;
   min-height: 40px;
-  padding: 10px 12.5px;
+  padding: 10px;
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -46,19 +70,22 @@
 
 .label__icon {
   display: block;
-  width: 15px;
+  max-width: 20px;
   height: 20px;
   object-fit: cover;
   object-position: center;
+  opacity: 0.4;
 }
 
-.label__left {
-  top: 24px;
-  left: 24px;
-  right: 0;
-  /* max-width: 87px; */
+.label__button:hover .label__icon {
+  opacity: 1;
 }
 
+@media screen and (max-width: 1440px) {
+  .label__popup {
+    display: none;
+  }
+}
 
 @media screen and (max-width: 1000px) {
   .label {

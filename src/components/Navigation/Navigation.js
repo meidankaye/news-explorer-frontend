@@ -11,7 +11,7 @@ function Navigation({ children, loggedIn, theme, isOpen, onClose }) {
     navigate("/saved-news");
     onClose();
   }
-  loggedIn = true;
+  // loggedIn = true;
   return (
     <>
       <nav

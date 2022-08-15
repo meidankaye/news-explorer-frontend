@@ -34,6 +34,10 @@
   color: #000;
 }
 
+.popup__container_type_confirm {
+  max-width: 314px;
+}
+
 .popup__close-button {
   background-image: url(../../images/close-logo.svg);
   position: absolute;
@@ -142,6 +146,15 @@
   border: none;
   background: none;
   margin: 0;
+  color: #2f71e5;
+  cursor: pointer;
+}
+
+.popup__link {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
   color: #2f71e5;
   cursor: pointer;
 }
