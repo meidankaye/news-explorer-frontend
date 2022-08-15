@@ -1,4 +1,6 @@
+import NewsCard from "../NewsCard/NewsCard";
 import NewsCardList from "../NewsCardList/NewsCardList";
+import { cards } from "../../utils/constants";
 import "./SavedNewsHeader.css";
 
 function SavedNewsHeader() {
@@ -16,7 +18,11 @@ function SavedNewsHeader() {
           </span>
         </p>
       </section>
-      <NewsCardList />
+      <NewsCardList cards={cards}>
+        {cards.map((card, i) => (
+          <NewsCard key={i} card={card} />
+        ))}
+      </NewsCardList>
     </>
   );
 }

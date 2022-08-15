@@ -61,11 +61,20 @@
     gap: 8px;
     align-self: center;
   }
-  
+
   .news-card-list__button {
     margin-top: 32px;
     max-width: 240px;
     height: 56px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .news-card-list__container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-sizing: border-box;
   }
 }
 
@@ -76,13 +85,6 @@
 
   .news-card-list__title {
     margin-bottom: 58px;
-  }
-
-  .news-card-list__container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    box-sizing: border-box;
   }
 
   .news-card-list__button {
