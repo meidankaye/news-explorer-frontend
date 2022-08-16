@@ -1,0 +1,114 @@
+.label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  gap: 5px;
+}
+
+.label_right {
+  top: 24px;
+  right: 24px;
+}
+
+.label__left {
+  top: 24px;
+  left: 24px;
+  right: 0;
+  height: 40px;
+  max-width: 124px;
+  justify-content: flex-start;
+}
+
+.label__popup {
+  display: flex;
+  width: 182px;
+  height: 40px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-shadow: 0px 10px 22px rgba(59, 74, 116, 0.1);
+  clip-path: polygon(100% 0, 100% 0%, 100% 100%, 100% 100%);
+  transition: clip-path 0.3s ease-out;
+  background-color: #FFFFFF;
+}
+
+.label_right:hover .label__popup {
+  clip-path: polygon(100% 0, 0 0, 0 100%, 100% 100%);
+}
+
+
+.label__text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 24px;
+}
+
+.label__button {
+  border: none;
+  border-radius: 8px;
+  background-color: #fff;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.label__icon {
+  display: block;
+  max-width: 20px;
+  height: 20px;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.4;
+}
+
+.label__button:hover .label__icon {
+  opacity: 1;
+}
+
+@media screen and (max-width: 1440px) {
+  .label__popup {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .label {
+    top: 8px;
+    right: 8px;
+  }
+
+  .label__left {
+    top: 8px;
+    left: 8px;
+    right: 0;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .label {
+    top: 16px;
+    right: 16px;
+  }
+
+  .label__left {
+    top: 16px;
+    left: 16px;
+    right: 0;
+  }
+}
