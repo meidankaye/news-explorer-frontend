@@ -3,7 +3,6 @@ import logoutWhite from "../../images/logoutwhite.svg";
 import logoutBlack from "../../images/logoutblack.svg";
 
 function HeaderButton({ loggedIn, theme, onHeaderButtonClick, onSignOut }) {
-  // loggedIn = true;
   return loggedIn ? (
     <button
       className={`header-button ${!theme ? "header-button_dark" : ""}`}

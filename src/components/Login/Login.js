@@ -1,9 +1,9 @@
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
 
-function Login({ isOpen, onClose, onSignInSubmit, onSignUpRedirect }) {
+function Login({ isOpen, onClose, onLogin, onSignUpRedirect }) {
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSignInSubmit();
+    onLogin();
   };
   return (
     <PopupWithForm

@@ -11,6 +11,16 @@ import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import PopupConfirm from "../PopupConfirm/PopupConfirm";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import {
+  register,
+  login,
+  validateToken,
+  getCurrentUser,
+  getArticles,
+  saveArticle,
+  deleteArticle,
+} from "../../utils/MainApi";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
@@ -28,6 +38,28 @@ function App() {
   React.useEffect(() => {
     location.pathname === "/" ? setpageTheme(true) : setpageTheme("");
   }, [location.pathname]);
+
+  React.useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    token &&
+      validateToken(token)
+        .then((res) => {
+          if (res.user) {
+            setCurrentUser(res.user);
+            setLoggedIn(true);
+            console.log(res.user);
+          }
+        })
+        .catch((err) => console.log(err));
+  }, []);
+
+  React.useEffect(() => {
+    loggedIn &&
+      getCurrentUser().then((res) => {
+        setCurrentUser((currentUser) => ({ ...currentUser, ...res.user }));
+      })
+      .catch((err) => console.log(err));
+  }, [loggedIn]);
 
   function handleCount() {
     setCardCount((cardCount) => (cardCount += 3));
@@ -69,20 +101,35 @@ function App() {
     setIsMenuPopupOpen(false);
   }
 
-  function handleSignUpSubmit() {
-    setCurrentUser();
-    setIsSignUpPopupOpen(false);
-    setIsConfirmPopupOpen(true);
+  function handleRegister(data) {
+    register(data)
+      .then((res) => {
+        res.json();
+      })
+      .then((res) => {
+        setIsSignUpPopupOpen(false);
+        setIsConfirmPopupOpen(true);
+      })
+      .catch((err) => console.log(err));
   }
 
-  function handleSignInSubmit() {
-    setLoggedIn(true);
-    setCurrentUser();
-    closeAllPopups();
+  function handleLogin(data) {
+    login(data)
+      .then((res) => {
+        res.json();
+      })
+      .then((res) => {
+        res.token && localStorage.setItem("jwt", res.token);
+        setLoggedIn(true);
+        closeAllPopups();
+      })
+      .catch((err) => console.log(err));
   }
 
   function handleSignOut() {
     setLoggedIn(false);
+    localStorage.removeItem("jwt");
+    setCurrentUser({});
   }
 
   React.useEffect(() => {
@@ -137,6 +184,7 @@ function App() {
               <Main
                 loggedIn={loggedIn}
                 cardCount={cardCount}
+                handleCount={handleCount}
                 isFullCardList={isFullCardList}
                 onSearch={handlePartialCardList}
               />
@@ -145,11 +193,13 @@ function App() {
           <Route
             path="/saved-news"
             element={
-              <SavedNewsHeader
-                loggedIn={loggedIn}
-                isFullCardList={isFullCardList}
-                onSearch={handleFullCardList}
-              />
+              <ProtectedRoute loggedIn={loggedIn}>
+                <SavedNewsHeader
+                  loggedIn={loggedIn}
+                  isFullCardList={isFullCardList}
+                  onSearch={handleFullCardList}
+                />
+              </ProtectedRoute>
             }
           />
         </Routes>
@@ -157,13 +207,13 @@ function App() {
           isOpen={isSignInPopupOpen}
           onClose={closeAllPopups}
           onSignUpRedirect={handleSignUpRedirect}
-          onSignInSubmit={handleSignInSubmit}
+          onLogin={handleLogin}
         />
         <Register
           isOpen={isSignUpPopupOpen}
           onClose={closeAllPopups}
           onSignInRedirect={handleSignInRedirect}
-          onSignUpSubmit={handleSignUpSubmit}
+          onRegister={handleRegister}
         />
         <PopupConfirm
           isOpen={isConfirmPopupOpen}
