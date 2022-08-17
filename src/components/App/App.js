@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
-import { useInfo, CurrentUserContext } from "../../contexts/CurrentUserContext";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import Header from "../Header/Header";
 import HeaderButton from "../HeaderButton/HeaderButton";
 import Navigation from "../Navigation/Navigation";
@@ -23,7 +23,6 @@ import {
 } from "../../utils/MainApi";
 
 function App() {
-  // const { currentUser, signIn } = useInfo();
   const [currentUser, setCurrentUser] = React.useState({});
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [pageTheme, setpageTheme] = React.useState(false);

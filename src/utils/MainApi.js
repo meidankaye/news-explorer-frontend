@@ -13,13 +13,16 @@ const generateCustomHeaders = () => {
 };
 
 export const register = ({ email, password, username }) => {
+  console.log(username)
+  console.log(email)
+  console.log(password);
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password, username }),
+    body: JSON.stringify({ email, password, name: username }),
   }).then(checkResponse);
 };
 
