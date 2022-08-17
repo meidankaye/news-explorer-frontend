@@ -12,7 +12,7 @@ const generateCustomHeaders = () => {
   };
 };
 
-export const register = ({ email, password, name }) => {
+export const register = (email, password, name) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
@@ -23,7 +23,7 @@ export const register = ({ email, password, name }) => {
   }).then(checkResponse);
 };
 
-export const login = ({ email, password }) => {
+export const login = (email, password) => {
   return fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {

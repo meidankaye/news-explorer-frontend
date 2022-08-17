@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { useInfo, CurrentUserContext } from "../../contexts/CurrentUserContext";
 import Header from "../Header/Header";
 import HeaderButton from "../HeaderButton/HeaderButton";
 import Navigation from "../Navigation/Navigation";
@@ -23,6 +23,7 @@ import {
 } from "../../utils/MainApi";
 
 function App() {
+  // const { currentUser, signIn } = useInfo();
   const [currentUser, setCurrentUser] = React.useState({});
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [pageTheme, setpageTheme] = React.useState(false);
@@ -55,10 +56,11 @@ function App() {
 
   React.useEffect(() => {
     loggedIn &&
-      getCurrentUser().then((res) => {
-        setCurrentUser((currentUser) => ({ ...currentUser, ...res.user }));
-      })
-      .catch((err) => console.log(err));
+      getCurrentUser()
+        .then((res) => {
+          setCurrentUser((currentUser) => ({ ...currentUser, ...res.user }));
+        })
+        .catch((err) => console.log(err));
   }, [loggedIn]);
 
   function handleCount() {
@@ -101,25 +103,19 @@ function App() {
     setIsMenuPopupOpen(false);
   }
 
-  function handleRegister(data) {
-    register(data)
-      .then((res) => {
-        res.json();
-      })
-      .then((res) => {
+  function handleRegister({ email, password, name }) {
+    register(email, password, name)
+      .then(() => {
         setIsSignUpPopupOpen(false);
         setIsConfirmPopupOpen(true);
       })
       .catch((err) => console.log(err));
   }
 
-  function handleLogin(data) {
-    login(data)
-      .then((res) => {
-        res.json();
-      })
-      .then((res) => {
-        res.token && localStorage.setItem("jwt", res.token);
+  function handleLogin({ email, password }) {
+    login(email, password)
+      .then((user) => {
+        localStorage.setItem("jwt", JSON.stringify(user.token));
         setLoggedIn(true);
         closeAllPopups();
       })
