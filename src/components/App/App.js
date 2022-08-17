@@ -103,8 +103,8 @@ function App() {
     setIsMenuPopupOpen(false);
   }
 
-  function handleRegister({ email, password, name }) {
-    register(email, password, name)
+  function handleRegister({ email, password, username }) {
+    register({ email, password, username })
       .then(() => {
         setIsSignUpPopupOpen(false);
         setIsConfirmPopupOpen(true);
@@ -113,7 +113,7 @@ function App() {
   }
 
   function handleLogin({ email, password }) {
-    login(email, password)
+    login({ email, password })
       .then((user) => {
         localStorage.setItem("jwt", JSON.stringify(user.token));
         setLoggedIn(true);

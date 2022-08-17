@@ -12,18 +12,18 @@ const generateCustomHeaders = () => {
   };
 };
 
-export const register = (email, password, name) => {
+export const register = ({ email, password, username }) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email, password, name }),
+    body: JSON.stringify({ email, password, username }),
   }).then(checkResponse);
 };
 
-export const login = (email, password) => {
+export const login = ({ email, password }) => {
   return fetch(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
