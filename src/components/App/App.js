@@ -65,14 +65,14 @@ function App() {
         .catch((err) => console.log(err));
   }, [loggedIn]);
 
-  React.useEffect(() => {
-    loggedIn &&
-      getArticles()
-        .then((res) => {
-          setCurrentUser((currentUser) => ({ ...currentUser, articles: res }));
-        })
-        .catch((err) => console.log(err));
-  }, [loggedIn]);
+  // React.useEffect(() => {
+  //   loggedIn &&
+  //     getArticles()
+  //       .then((res) => {
+  //         setCurrentUser((currentUser) => ({ ...currentUser, articles: res }));
+  //       })
+  //       .catch((err) => console.log(err));
+  // }, [loggedIn]);
 
   function getData(keyword) {
     setSearchResult(true);
@@ -139,7 +139,7 @@ function App() {
   function handleLogin({ email, password }) {
     login({ email, password })
       .then((user) => {
-        localStorage.setItem("jwt", JSON.stringify(user.token));
+        user.token && localStorage.setItem("jwt", user.token);
         setLoggedIn(true);
         closeAllPopups();
       })
@@ -191,6 +191,7 @@ function App() {
             <HeaderButton
               loggedIn={loggedIn}
               theme={pageTheme}
+              currentUser={currentUser}
               onHeaderButtonClick={handleHeaderButtonClick}
               onSignOut={handleSignOut}
             />
