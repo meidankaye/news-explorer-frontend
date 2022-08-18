@@ -12,6 +12,7 @@ import Login from "../Login/Login";
 import Register from "../Register/Register";
 import PopupConfirm from "../PopupConfirm/PopupConfirm";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import newsApi from "../../utils/NewsApi";
 import {
   register,
   login,
@@ -30,8 +31,11 @@ function App() {
   const [isSignUpPopupOpen, setIsSignUpPopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
   const [isMenuPopupOpen, setIsMenuPopupOpen] = React.useState(false);
+  const [searchResult, setSearchResult] = React.useState(true);
+  const [searchError, setSearchError] = React.useState("");
   const [cardCount, setCardCount] = React.useState(3);
-  const [isFullCardList, setIsFullCardList] = React.useState();
+  const [isCardListOpen, setIsCardListOpen] = React.useState(false);
+  const [articles, setArticles] = React.useState([]);
 
   const location = useLocation();
 
@@ -47,7 +51,6 @@ function App() {
           if (res.user) {
             setCurrentUser(res.user);
             setLoggedIn(true);
-            console.log(res.user);
           }
         })
         .catch((err) => console.log(err));
@@ -62,16 +65,38 @@ function App() {
         .catch((err) => console.log(err));
   }, [loggedIn]);
 
+  React.useEffect(() => {
+    loggedIn &&
+      getArticles()
+        .then((res) => {
+          setCurrentUser((currentUser) => ({ ...currentUser, articles: res }));
+        })
+        .catch((err) => console.log(err));
+  }, [loggedIn]);
+
+  function getData(keyword) {
+    setSearchResult(true);
+    setIsCardListOpen(true);
+    localStorage.removeItem("articles");
+    setArticles([]);
+    setCardCount(3);
+    newsApi
+      .getArticles(keyword)
+      .then((res) => {
+        !res.articles.length && setSearchResult(false);
+        localStorage.setItem("keyword", keyword);
+        localStorage.setItem("articles", JSON.stringify(res.articles));
+        setArticles(res.articles);
+      })
+      .catch(() => {
+        setSearchError(
+          "Sorry, something went wrong during the request. There may be a connection issue or the server may be down. Please try again later."
+        );
+      });
+  }
+
   function handleCount() {
     setCardCount((cardCount) => (cardCount += 3));
-  }
-
-  function handleFullCardList() {
-    setIsFullCardList(true);
-  }
-
-  function handlePartialCardList() {
-    setIsFullCardList(true);
   }
 
   function handleMenuClick(boolean) {
@@ -178,10 +203,13 @@ function App() {
             element={
               <Main
                 loggedIn={loggedIn}
+                articles={articles}
+                onSearch={getData}
+                searchResult={searchResult}
+                isOpen={isCardListOpen}
+                searchError={searchError}
                 cardCount={cardCount}
                 handleCount={handleCount}
-                isFullCardList={isFullCardList}
-                onSearch={handlePartialCardList}
               />
             }
           />
@@ -189,11 +217,7 @@ function App() {
             path="/saved-news"
             element={
               <ProtectedRoute loggedIn={loggedIn}>
-                <SavedNewsHeader
-                  loggedIn={loggedIn}
-                  isFullCardList={isFullCardList}
-                  onSearch={handleFullCardList}
-                />
+                <SavedNewsHeader loggedIn={loggedIn} />
               </ProtectedRoute>
             }
           />
