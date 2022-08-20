@@ -4,7 +4,7 @@ import NewsCard from "../NewsCard/NewsCard";
 import NewsCardList from "../NewsCardList/NewsCardList";
 import "./SavedNewsHeader.css";
 
-function SavedNewsHeader({ loggedIn, isOpen, onDelete }) {
+function SavedNewsHeader({ loggedIn, onDelete, articles }) {
   const currentUser = React.useContext(CurrentUserContext);
   const [keywords, setKeywords] = React.useState([]);
 
@@ -38,9 +38,9 @@ function SavedNewsHeader({ loggedIn, isOpen, onDelete }) {
           </p>
         )}
       </section>
-      {currentUser.articles.length && (
-        <NewsCardList isOpen={isOpen}>
-          {currentUser.articles.map((card, i) => (
+      {articles.length && (
+        <NewsCardList>
+          {articles.map((card, i) => (
             <NewsCard
               key={i}
               card={card}

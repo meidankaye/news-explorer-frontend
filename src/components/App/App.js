@@ -261,7 +261,7 @@ function App() {
               <ProtectedRoute loggedIn={loggedIn}>
                 <SavedNewsHeader
                   loggedIn={loggedIn}
-                  isOpen={isCardListOpen}
+                  articles={articles}
                   onDelete={removeArticle}
                 />
               </ProtectedRoute>
