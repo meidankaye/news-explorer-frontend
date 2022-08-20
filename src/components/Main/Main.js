@@ -13,6 +13,8 @@ function Main({
   isOpen,
   searchError,
   searchResult,
+  onSave,
+  onDelete,
 }) {
   return (
     <section className="main">
@@ -35,7 +37,13 @@ function Main({
           articles
             .slice(0, cardCount)
             .map((card, i) => (
-              <NewsCard key={i} card={card} loggedIn={loggedIn} />
+              <NewsCard
+                key={i}
+                card={card}
+                loggedIn={loggedIn}
+                onSave={onSave}
+                onDelete={onDelete}
+              />
             ))}
       </NewsCardList>
       <About />

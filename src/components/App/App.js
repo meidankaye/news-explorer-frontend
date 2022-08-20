@@ -31,6 +31,7 @@ function App() {
   const [isSignUpPopupOpen, setIsSignUpPopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
   const [isMenuPopupOpen, setIsMenuPopupOpen] = React.useState(false);
+  const [responseError, setResponseError] = React.useState(null);
   const [searchResult, setSearchResult] = React.useState(true);
   const [searchError, setSearchError] = React.useState("");
   const [cardCount, setCardCount] = React.useState(3);
@@ -65,14 +66,22 @@ function App() {
         .catch((err) => console.log(err));
   }, [loggedIn]);
 
-  // React.useEffect(() => {
-  //   loggedIn &&
-  //     getArticles()
-  //       .then((res) => {
-  //         setCurrentUser((currentUser) => ({ ...currentUser, articles: res }));
-  //       })
-  //       .catch((err) => console.log(err));
-  // }, [loggedIn]);
+  React.useEffect(() => {
+    loggedIn &&
+      getArticles()
+        .then((res) => {
+          setCurrentUser((currentUser) => ({ ...currentUser, articles: res }));
+        })
+        .catch((err) => console.log(err));
+  }, [loggedIn]);
+
+  React.useEffect(() => {
+    const prevArticles = localStorage.getItem("articles");
+    if (prevArticles && prevArticles !== "[]") {
+      setArticles(JSON.parse(prevArticles).slice(0, cardCount));
+      setIsCardListOpen(true);
+    }
+  }, [cardCount]);
 
   function getData(keyword) {
     setSearchResult(true);
@@ -93,6 +102,30 @@ function App() {
           "Sorry, something went wrong during the request. There may be a connection issue or the server may be down. Please try again later."
         );
       });
+  }
+
+  function addArticle(data) {
+    const keyword = localStorage.getItem("keyword");
+    saveArticle(keyword, { data })
+      .then((res) => {
+        setCurrentUser((currentUser) => ({
+          ...currentUser,
+          articles: [...currentUser.articles, res],
+        }));
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function removeArticle(id) {
+    deleteArticle(id)
+      .then(() => {
+        const arr = currentUser.articles.filter((item) => item._id !== id);
+        setCurrentUser((currentUser) => ({
+          ...currentUser,
+          articles: arr,
+        }));
+      })
+      .catch((err) => console.log(err));
   }
 
   function handleCount() {
@@ -133,7 +166,10 @@ function App() {
         setIsSignUpPopupOpen(false);
         setIsConfirmPopupOpen(true);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setResponseError(err.message);
+      });
   }
 
   function handleLogin({ email, password }) {
@@ -143,7 +179,10 @@ function App() {
         setLoggedIn(true);
         closeAllPopups();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setResponseError(err.message);
+      });
   }
 
   function handleSignOut() {
@@ -211,6 +250,8 @@ function App() {
                 searchError={searchError}
                 cardCount={cardCount}
                 handleCount={handleCount}
+                onSave={addArticle}
+                onDelete={removeArticle}
               />
             }
           />
@@ -218,7 +259,11 @@ function App() {
             path="/saved-news"
             element={
               <ProtectedRoute loggedIn={loggedIn}>
-                <SavedNewsHeader loggedIn={loggedIn} />
+                <SavedNewsHeader
+                  loggedIn={loggedIn}
+                  isOpen={isCardListOpen}
+                  onDelete={removeArticle}
+                />
               </ProtectedRoute>
             }
           />
@@ -228,12 +273,14 @@ function App() {
           onClose={closeAllPopups}
           onSignUpRedirect={handleSignUpRedirect}
           onLogin={handleLogin}
+          responseError={responseError}
         />
         <Register
           isOpen={isSignUpPopupOpen}
           onClose={closeAllPopups}
           onSignInRedirect={handleSignInRedirect}
           onRegister={handleRegister}
+          responseError={responseError}
         />
         <PopupConfirm
           isOpen={isConfirmPopupOpen}

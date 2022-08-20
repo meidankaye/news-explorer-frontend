@@ -5,14 +5,19 @@ import bookmark from "../../images/bookmark-black.svg";
 import bookmarkBlue from "../../images/bookmark-blue.svg";
 import trashcan from "../../images/trash-black.svg";
 
-function CardLabel({ loggedIn }) {
+function CardLabel({ loggedIn, onSave, onDelete, card, getCardId }) {
   const isMain = useLocation().pathname === "/";
   const [isMarked, setIsMarked] = useState(false);
 
-  function handleBookmarkClick() {
-    loggedIn && setIsMarked((isMarked) => !isMarked);
+  function handleBookmarkClick(e) {
+    e.stopPropagation();
+    if (loggedIn && isMain) {
+      !isMarked && onSave(card);
+      setIsMarked((isMarked) => !isMarked);
+    } else if (!isMain) {
+      onDelete(getCardId());
+    }
   }
-  // loggedIn = true;
   return (
     <>
       <div className="label label_right">
@@ -41,7 +46,7 @@ function CardLabel({ loggedIn }) {
       </div>
       {!isMain && (
         <div className="label label__left">
-          <span className="label__text">Placeholder</span>
+          <span className="label__text">{card.keyword}</span>
         </div>
       )}
     </>

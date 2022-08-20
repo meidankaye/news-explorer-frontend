@@ -1,7 +1,7 @@
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
 import { useFormAndValidate } from "../../utils/useFormAndValidate";
 
-function Login({ isOpen, onClose, onLogin, onSignUpRedirect }) {
+function Login({ isOpen, onClose, onLogin, onSignUpRedirect, responseError }) {
   const { values, errors, isNoErrors, handleChange } = useFormAndValidate();
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -44,7 +44,9 @@ function Login({ isOpen, onClose, onLogin, onSignUpRedirect }) {
         ></input>
       </label>
       <span className="popup__input-error">{errors.password}</span>
-      <span className="popup__response-error">This email is not available</span>
+      {responseError && (
+        <span className="popup__response-error">{responseError}</span>
+      )}
       <button
         className="popup__submit-button"
         type="submit"

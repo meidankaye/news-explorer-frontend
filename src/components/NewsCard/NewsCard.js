@@ -3,7 +3,7 @@ import "./NewsCard.css";
 import CardLabel from "../CardLabel/CardLabel";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function NewsCard({ loggedIn, card }) {
+function NewsCard({ loggedIn, card, onSave, onDelete }) {
   const currentUser = React.useContext(CurrentUserContext);
 
   function formatDate(date) {
@@ -37,7 +37,13 @@ function NewsCard({ loggedIn, card }) {
     <li>
       <article className="news-card">
         <div className="news-card__image-box">
-          <CardLabel loggedIn={loggedIn} />
+          <CardLabel
+            loggedIn={loggedIn}
+            onSave={onSave}
+            onDelete={onDelete}
+            card={card}
+            getCardId={getCardId}
+          />
           <a href="/">
             <img
               className="news-card__image"

@@ -64,11 +64,11 @@ export const saveArticle = (keyword, card) => {
     headers: generateCustomHeaders(),
     body: JSON.stringify({
       keyword,
-      title: card.date.title,
+      title: card.data.title,
       text: card.data.description,
       date: card.data.publishedAt,
       source: card.data.source.name,
-      image: card.date.urlToImage,
+      image: card.data.urlToImage,
       link: card.data.url,
     }),
   }).then(checkResponse);
