@@ -13,9 +13,6 @@ const generateCustomHeaders = () => {
 };
 
 export const register = ({ email, password, username }) => {
-  console.log(username)
-  console.log(email)
-  console.log(password);
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {

@@ -7,7 +7,7 @@ import HeaderButton from "../HeaderButton/HeaderButton";
 import Navigation from "../Navigation/Navigation";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
-import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
+import SavedNews from "../SavedNews/SavedNews";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import PopupConfirm from "../PopupConfirm/PopupConfirm";
@@ -93,7 +93,7 @@ function App() {
       .getArticles(keyword)
       .then((res) => {
         !res.articles.length && setSearchResult(false);
-        localStorage.setItem("keyword", keyword);
+        localStorage.setItem("keyword", res.keyword);
         localStorage.setItem("articles", JSON.stringify(res.articles));
         setArticles(res.articles);
       })
@@ -178,6 +178,7 @@ function App() {
         user.token && localStorage.setItem("jwt", user.token);
         setLoggedIn(true);
         closeAllPopups();
+        setCurrentUser(user);
       })
       .catch((err) => {
         console.log(err);
@@ -259,9 +260,8 @@ function App() {
             path="/saved-news"
             element={
               <ProtectedRoute loggedIn={loggedIn}>
-                <SavedNewsHeader
+                <SavedNews
                   loggedIn={loggedIn}
-                  articles={articles}
                   onDelete={removeArticle}
                 />
               </ProtectedRoute>

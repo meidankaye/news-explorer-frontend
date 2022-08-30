@@ -14,7 +14,7 @@ function HeaderButton({
       className={`header-button ${!theme ? "header-button_dark" : ""}`}
       onClick={onSignOut}
     >
-      <span className="header-button__username">Elise</span>
+      <span className="header-button__username">{currentUser.name}</span>
       <img
         className="header-button__image"
         src={theme ? logoutWhite : logoutBlack}
