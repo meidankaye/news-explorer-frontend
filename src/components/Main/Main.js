@@ -14,7 +14,6 @@ function Main({
   searchError,
   searchResult,
   onSave,
-  onDelete,
 }) {
   return (
     <section className="main">
@@ -42,7 +41,6 @@ function Main({
                 card={card}
                 loggedIn={loggedIn}
                 onSave={onSave}
-                onDelete={onDelete}
               />
             ))}
       </NewsCardList>

@@ -49,8 +49,8 @@ function App() {
     token &&
       validateToken(token)
         .then((res) => {
-          if (res.user) {
-            setCurrentUser(res.user);
+          if (res.name) {
+            setCurrentUser(res);
             setLoggedIn(true);
           }
         })
@@ -93,7 +93,7 @@ function App() {
       .getArticles(keyword)
       .then((res) => {
         !res.articles.length && setSearchResult(false);
-        localStorage.setItem("keyword", res.keyword);
+        localStorage.setItem("keyword", keyword);
         localStorage.setItem("articles", JSON.stringify(res.articles));
         setArticles(res.articles);
       })
@@ -215,8 +215,8 @@ function App() {
   }, [isSignInPopupOpen, isSignUpPopupOpen]);
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <div className={`app ${pageTheme && "app_background"}`}>
+    <div className={`app ${pageTheme && "app_background"}`}>
+      <CurrentUserContext.Provider value={currentUser}>
         <Header
           theme={pageTheme}
           openPopup={handleMenuClick}
@@ -260,10 +260,7 @@ function App() {
             path="/saved-news"
             element={
               <ProtectedRoute loggedIn={loggedIn}>
-                <SavedNews
-                  loggedIn={loggedIn}
-                  onDelete={removeArticle}
-                />
+                <SavedNews loggedIn={loggedIn} onDelete={removeArticle} />
               </ProtectedRoute>
             }
           />
@@ -290,8 +287,8 @@ function App() {
           name="confirm"
         />
         <Footer />
-      </div>
-    </CurrentUserContext.Provider>
+      </CurrentUserContext.Provider>
+    </div>
   );
 }
 
