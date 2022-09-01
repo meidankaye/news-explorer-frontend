@@ -1,9 +1,13 @@
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
+import { useFormAndValidate } from "../../utils/useFormAndValidate";
 
-function Login({ isOpen, onClose, onSignInSubmit, onSignUpRedirect }) {
+function Login({ isOpen, onClose, onLogin, onSignUpRedirect, responseError }) {
+  const { values, errors, isNoErrors, handleChange } = useFormAndValidate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSignInSubmit();
+    if (isNoErrors) {
+      onLogin(values);
+    }
   };
   return (
     <PopupWithForm
@@ -16,31 +20,33 @@ function Login({ isOpen, onClose, onSignInSubmit, onSignUpRedirect }) {
       <label className="popup__label">
         Email
         <input
-          id="email-login-input"
+          value={values.email || ""}
+          onChange={handleChange}
           name="email"
           className="popup__input"
-          type="email"
-          placeholder="Enter email"
+          type={"email"}
+          placeholder={"Enter email"}
           required
         ></input>
       </label>
-      <span className="popup__input-error">Invalid email address</span>
+      <span className="popup__input-error">{errors.email}</span>
       <label className="popup__label">
         Password
         <input
-          id="password-input"
+          value={values.password || ""}
+          onChange={handleChange}
           name="password"
           className="popup__input"
-          type="password"
-          placeholder="Enter password"
+          type={"password"}
+          placeholder={"Enter password"}
           minLength="6"
           required
         ></input>
       </label>
-      <span className="popup__input-error">
-        Please use at least 6 characters.
-      </span>
-      <span className="popup__response-error">This email is not available</span>
+      <span className="popup__input-error">{errors.password}</span>
+      {responseError && (
+        <span className="popup__response-error">{responseError}</span>
+      )}
       <button
         className="popup__submit-button"
         type="submit"

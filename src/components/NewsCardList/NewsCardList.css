@@ -1,10 +1,14 @@
 .news-card-list {
   color: #1a1b22;
-  display: flex;
+  display: none;
   flex-direction: column;
   padding: 80px 104px;
   position: relative;
   background: #f5f6f7;
+}
+
+.news-card-list_opened {
+  display: flex;
 }
 
 .news-card-list__title {
