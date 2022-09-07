@@ -1,5 +1,5 @@
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
-import { useFormAndValidate } from "../../utils/useFormAndValidate";
+import { useFormAndValidate } from "../../hooks/useFormAndValidate";
 
 function Login({ isOpen, onClose, onLogin, onSignUpRedirect, responseError }) {
   const { values, errors, isNoErrors, handleChange } = useFormAndValidate();
@@ -50,7 +50,6 @@ function Login({ isOpen, onClose, onLogin, onSignUpRedirect, responseError }) {
       <button
         className="popup__submit-button"
         type="submit"
-        onClick={handleSubmit}
       >
         Sign in
       </button>

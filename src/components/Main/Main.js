@@ -8,12 +8,14 @@ function Main({
   loggedIn,
   articles,
   cardCount,
+  showMoreButton,
   handleCount,
   onSearch,
   isOpen,
   searchError,
   searchResult,
   onSave,
+  onDelete,
 }) {
   return (
     <section className="main">
@@ -31,6 +33,7 @@ function Main({
         searchError={searchError}
         articles={articles}
         handleCount={handleCount}
+        showMoreButton={showMoreButton}
       >
         {articles.length &&
           articles
@@ -41,6 +44,7 @@ function Main({
                 card={card}
                 loggedIn={loggedIn}
                 onSave={onSave}
+                onDelete={onDelete}
               />
             ))}
       </NewsCardList>

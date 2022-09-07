@@ -5,6 +5,7 @@ function NewsCardList({
   children,
   isOpen,
   searchResult,
+  showMoreButton,
   searchError,
   articles,
   handleCount,
@@ -15,7 +16,12 @@ function NewsCardList({
         <>
           <h2 className="news-card-list__title">Search results</h2>
           <ul className="news-card-list__container">{children}</ul>
-          <button onClick={handleCount} className="news-card-list__button">
+          <button
+            onClick={handleCount}
+            className={`news-card-list__button ${
+              showMoreButton && "news-card-list__button_active"
+            }`}
+          >
             Show more
           </button>
         </>
@@ -23,8 +29,7 @@ function NewsCardList({
         <Preloader />
       ) : (
         <NothingFound />
-      )
-    }
+      )}
     </section>
   );
 }

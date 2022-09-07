@@ -44,6 +44,11 @@
   cursor: pointer;
   padding: 0;
   margin: 84px 0 0;
+  display: none;
+}
+
+.news-card-list__button_active {
+  display: block;
 }
 
 .news-card-list__button:hover {

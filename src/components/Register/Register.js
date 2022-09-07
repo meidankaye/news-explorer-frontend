@@ -1,5 +1,5 @@
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
-import { useFormAndValidate } from "../../utils/useFormAndValidate";
+import { useFormAndValidate } from "../../hooks/useFormAndValidate";
 
 function Register({
   isOpen,
@@ -70,7 +70,6 @@ function Register({
       <button
         className="popup__submit-button"
         type="submit"
-        onClick={handleSubmit}
       >
         Sign up
       </button>

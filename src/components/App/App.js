@@ -26,7 +26,7 @@ import {
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [pageTheme, setpageTheme] = React.useState(false);
+  const [pageTheme, setPageTheme] = React.useState(false);
   const [isSignInPopupOpen, setIsSignInPopupOpen] = React.useState(false);
   const [isSignUpPopupOpen, setIsSignUpPopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
@@ -35,13 +35,14 @@ function App() {
   const [searchResult, setSearchResult] = React.useState(true);
   const [searchError, setSearchError] = React.useState("");
   const [cardCount, setCardCount] = React.useState(3);
+  const [showMoreButton, setShowMoreButton] = React.useState(true);
   const [isCardListOpen, setIsCardListOpen] = React.useState(false);
   const [articles, setArticles] = React.useState([]);
 
   const location = useLocation();
 
   React.useEffect(() => {
-    location.pathname === "/" ? setpageTheme(true) : setpageTheme("");
+    location.pathname === "/" ? setPageTheme(true) : setPageTheme("");
   }, [location.pathname]);
 
   React.useEffect(() => {
@@ -82,6 +83,12 @@ function App() {
       setIsCardListOpen(true);
     }
   }, [cardCount]);
+
+  React.useEffect(() => {
+    cardCount > articles.length
+      ? setShowMoreButton(false)
+      : setShowMoreButton(true);
+  }, [cardCount, articles]);
 
   function getData(keyword) {
     setSearchResult(true);
@@ -250,6 +257,7 @@ function App() {
                 isOpen={isCardListOpen}
                 searchError={searchError}
                 cardCount={cardCount}
+                showMoreButton={showMoreButton}
                 handleCount={handleCount}
                 onSave={addArticle}
                 onDelete={removeArticle}

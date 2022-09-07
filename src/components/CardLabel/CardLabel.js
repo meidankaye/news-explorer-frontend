@@ -12,7 +12,7 @@ function CardLabel({ loggedIn, onSave, onDelete, card, getCardId }) {
   function handleBookmarkClick(e) {
     e.stopPropagation();
     if (loggedIn && isMain) {
-      !isMarked && onSave(card);
+      !isMarked ? onSave(card) : onDelete(getCardId());
       setIsMarked((isMarked) => !isMarked);
     } else if (!isMain) {
       onDelete(getCardId());
