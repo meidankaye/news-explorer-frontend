@@ -38,7 +38,12 @@ function NewsCard({ loggedIn, card, onSave, onDelete }) {
 
   return (
     <li>
-      <article className="news-card">
+      <article
+        className="news-card"
+        onClick={() =>
+          window.open(`${isMain ? card.url : card.link}`, "_blank")
+        }
+      >
         <div className="news-card__image-box">
           <CardLabel
             loggedIn={loggedIn}
