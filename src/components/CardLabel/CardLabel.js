@@ -1,13 +1,22 @@
+import React from "react";
 import "./CardLabel.css";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import bookmark from "../../images/bookmark-black.svg";
 import bookmarkBlue from "../../images/bookmark-blue.svg";
 import trashcan from "../../images/trash-black.svg";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function CardLabel({ loggedIn, onSave, onDelete, card, getCardId }) {
+  const currentUser = React.useContext(CurrentUserContext);
   const isMain = useLocation().pathname === "/";
   const [isMarked, setIsMarked] = useState(false);
+
+  React.useEffect(() => {
+    currentUser.articles &&
+      currentUser.articles.some((item) => item.title === card.title) &&
+      setIsMarked(true);
+  }, [currentUser, card.title]);
 
   function handleBookmarkClick(e) {
     e.stopPropagation();
