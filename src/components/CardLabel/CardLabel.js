@@ -29,7 +29,7 @@ function CardLabel({ loggedIn, onSave, onDelete, card, getCardId }) {
   }
   return (
     <>
-      <div className="label label_right">
+      {/* <div className="label label_right">
         <div className="label__popup">
           {isMain ? "Sign in to save articles" : "Remove from saved"}
         </div>
@@ -52,7 +52,44 @@ function CardLabel({ loggedIn, onSave, onDelete, card, getCardId }) {
             <img className="label__icon" src={trashcan} alt="Trash icon" />
           )}
         </button>
-      </div>
+      </div> */}
+      {isMain ? (
+        <div className="label label_right">
+          {!loggedIn && (
+            <div className="label__popup">
+              <span>Sign in to save articles</span>
+            </div>
+          )}
+          <button
+            className="label__button"
+            onClick={handleBookmarkClick}
+            type="button"
+          >
+            {!isMarked ? (
+              <img className="label__icon" src={bookmark} alt="Bookmark icon" />
+            ) : (
+              <img
+                className="label__icon_marked"
+                src={bookmarkBlue}
+                alt="Marked Bookmark icon"
+              />
+            )}
+          </button>
+        </div>
+      ) : (
+        <div className="label label_right">
+          <div className="label__popup">
+            <span>Remove from saved</span>
+          </div>
+          <button
+            className="label__button"
+            onClick={handleBookmarkClick}
+            type="button"
+          >
+            <img className="label__icon" src={trashcan} alt="Trash icon" />
+          </button>
+        </div>
+      )}
       {!isMain && (
         <div className="label label__left">
           <span className="label__text">{card.keyword}</span>
