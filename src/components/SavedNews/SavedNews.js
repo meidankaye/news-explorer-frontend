@@ -12,9 +12,9 @@ function SavedNews({ onDelete }) {
       {currentUser.articles.length && (
         <div className="saved-news__content">
           <div className="saved-news__cards">
-            {currentUser.articles.map((card, i) => (
-              <NewsCard key={i} card={card} onDelete={onDelete} />
-            ))}
+            {currentUser.articles.map((card, i) => {
+              return <NewsCard key={i} card={card} onDelete={onDelete} />;
+            })}
           </div>
         </div>
       )}

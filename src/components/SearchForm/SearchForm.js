@@ -37,7 +37,6 @@ function SearchForm({ onSearch }) {
       <button
         className="search-form__button"
         type="submit"
-        onClick={handleSubmit}
       >
         Search
       </button>
