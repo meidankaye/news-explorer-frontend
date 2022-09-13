@@ -19,6 +19,7 @@
   object-fit: cover;
   object-position: center;
   border-radius: 16px 16px 0 0;
+  height: 272px;
 }
 
 .news-card__image-box {
@@ -43,6 +44,11 @@
   font-size: 22px;
   line-height: 24px;
   margin: 12px 0 16px;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
 .news-card__text {

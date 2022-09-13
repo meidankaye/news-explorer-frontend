@@ -1,44 +1,142 @@
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import "./App.css";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import Header from "../Header/Header";
 import HeaderButton from "../HeaderButton/HeaderButton";
 import Navigation from "../Navigation/Navigation";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
-import SavedNewsHeader from "../SavedNewsHeader/SavedNewsHeader";
+import SavedNews from "../SavedNews/SavedNews";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import PopupConfirm from "../PopupConfirm/PopupConfirm";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import newsApi from "../../utils/NewsApi";
+import {
+  register,
+  login,
+  validateToken,
+  getCurrentUser,
+  getArticles,
+  saveArticle,
+  deleteArticle,
+} from "../../utils/MainApi";
 
 function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [pageTheme, setpageTheme] = React.useState(false);
+  const [pageTheme, setPageTheme] = React.useState(false);
   const [isSignInPopupOpen, setIsSignInPopupOpen] = React.useState(false);
   const [isSignUpPopupOpen, setIsSignUpPopupOpen] = React.useState(false);
   const [isConfirmPopupOpen, setIsConfirmPopupOpen] = React.useState(false);
   const [isMenuPopupOpen, setIsMenuPopupOpen] = React.useState(false);
+  const [responseError, setResponseError] = React.useState(null);
+  const [searchResult, setSearchResult] = React.useState(true);
+  const [searchError, setSearchError] = React.useState("");
   const [cardCount, setCardCount] = React.useState(3);
-  const [isFullCardList, setIsFullCardList] = React.useState();
+  const [showMoreButton, setShowMoreButton] = React.useState(true);
+  const [isCardListOpen, setIsCardListOpen] = React.useState(false);
+  const [articles, setArticles] = React.useState([]);
 
   const location = useLocation();
 
   React.useEffect(() => {
-    location.pathname === "/" ? setpageTheme(true) : setpageTheme("");
+    location.pathname === "/" ? setPageTheme(true) : setPageTheme("");
   }, [location.pathname]);
+
+  React.useEffect(() => {
+    const token = localStorage.getItem("jwt");
+    token &&
+      validateToken(token)
+        .then((res) => {
+          if (res.name) {
+            setCurrentUser(res);
+            setLoggedIn(true);
+          }
+        })
+        .catch((err) => console.log(err));
+  }, []);
+
+  React.useEffect(() => {
+    loggedIn &&
+      getCurrentUser()
+        .then((res) => {
+          setCurrentUser((currentUser) => ({ ...currentUser, ...res.user }));
+        })
+        .catch((err) => console.log(err));
+  }, [loggedIn]);
+
+  React.useEffect(() => {
+    loggedIn &&
+      getArticles()
+        .then((res) => {
+          setCurrentUser((currentUser) => ({ ...currentUser, articles: res }));
+        })
+        .catch((err) => console.log(err));
+  }, [loggedIn]);
+
+  React.useEffect(() => {
+    const prevArticles = localStorage.getItem("articles");
+    if (prevArticles && prevArticles !== "[]") {
+      setArticles(JSON.parse(prevArticles).slice(0, cardCount));
+      setIsCardListOpen(true);
+    }
+  }, [cardCount]);
+
+  React.useEffect(() => {
+    cardCount > articles.length
+      ? setShowMoreButton(false)
+      : setShowMoreButton(true);
+  }, [cardCount, articles]);
+
+  function getData(keyword) {
+    setSearchResult(true);
+    setIsCardListOpen(true);
+    localStorage.removeItem("articles");
+    setArticles([]);
+    setCardCount(3);
+    newsApi
+      .getArticles(keyword)
+      .then((res) => {
+        !res.articles.length && setSearchResult(false);
+        localStorage.setItem("keyword", keyword);
+        localStorage.setItem("articles", JSON.stringify(res.articles));
+        setArticles(res.articles);
+      })
+      .catch(() => {
+        setSearchError(
+          "Sorry, something went wrong during the request. There may be a connection issue or the server may be down. Please try again later."
+        );
+      });
+  }
+
+  function addArticle(data) {
+    const keyword = localStorage.getItem("keyword");
+    saveArticle(keyword, { data })
+      .then((res) => {
+        setCurrentUser((currentUser) => ({
+          ...currentUser,
+          articles: [...currentUser.articles, res],
+        }));
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function removeArticle(id) {
+    deleteArticle(id)
+      .then(() => {
+        const arr = currentUser.articles.filter((item) => item._id !== id);
+        setCurrentUser((currentUser) => ({
+          ...currentUser,
+          articles: arr,
+        }));
+      })
+      .catch((err) => console.log(err));
+  }
 
   function handleCount() {
     setCardCount((cardCount) => (cardCount += 3));
-  }
-
-  function handleFullCardList() {
-    setIsFullCardList(true);
-  }
-
-  function handlePartialCardList() {
-    setIsFullCardList(true);
   }
 
   function handleMenuClick(boolean) {
@@ -69,20 +167,36 @@ function App() {
     setIsMenuPopupOpen(false);
   }
 
-  function handleSignUpSubmit() {
-    setCurrentUser();
-    setIsSignUpPopupOpen(false);
-    setIsConfirmPopupOpen(true);
+  function handleRegister({ email, password, username }) {
+    register({ email, password, username })
+      .then(() => {
+        setIsSignUpPopupOpen(false);
+        setIsConfirmPopupOpen(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        setResponseError(err.message);
+      });
   }
 
-  function handleSignInSubmit() {
-    setLoggedIn(true);
-    setCurrentUser();
-    closeAllPopups();
+  function handleLogin({ email, password }) {
+    login({ email, password })
+      .then((user) => {
+        user.token && localStorage.setItem("jwt", user.token);
+        setLoggedIn(true);
+        closeAllPopups();
+        setCurrentUser(user);
+      })
+      .catch((err) => {
+        console.log(err);
+        setResponseError(err.message);
+      });
   }
 
   function handleSignOut() {
     setLoggedIn(false);
+    localStorage.removeItem("jwt");
+    setCurrentUser({});
   }
 
   React.useEffect(() => {
@@ -108,8 +222,8 @@ function App() {
   }, [isSignInPopupOpen, isSignUpPopupOpen]);
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      <div className={`app ${pageTheme && "app_background"}`}>
+    <div className={`app ${pageTheme && "app_background"}`}>
+      <CurrentUserContext.Provider value={currentUser}>
         <Header
           theme={pageTheme}
           openPopup={handleMenuClick}
@@ -124,6 +238,7 @@ function App() {
             <HeaderButton
               loggedIn={loggedIn}
               theme={pageTheme}
+              currentUser={currentUser}
               onHeaderButtonClick={handleHeaderButtonClick}
               onSignOut={handleSignOut}
             />
@@ -136,20 +251,25 @@ function App() {
             element={
               <Main
                 loggedIn={loggedIn}
+                articles={articles}
+                onSearch={getData}
+                searchResult={searchResult}
+                isOpen={isCardListOpen}
+                searchError={searchError}
                 cardCount={cardCount}
-                isFullCardList={isFullCardList}
-                onSearch={handlePartialCardList}
+                showMoreButton={showMoreButton}
+                handleCount={handleCount}
+                onSave={addArticle}
+                onDelete={removeArticle}
               />
             }
           />
           <Route
             path="/saved-news"
             element={
-              <SavedNewsHeader
-                loggedIn={loggedIn}
-                isFullCardList={isFullCardList}
-                onSearch={handleFullCardList}
-              />
+              <ProtectedRoute loggedIn={loggedIn}>
+                <SavedNews loggedIn={loggedIn} onDelete={removeArticle} />
+              </ProtectedRoute>
             }
           />
         </Routes>
@@ -157,13 +277,15 @@ function App() {
           isOpen={isSignInPopupOpen}
           onClose={closeAllPopups}
           onSignUpRedirect={handleSignUpRedirect}
-          onSignInSubmit={handleSignInSubmit}
+          onLogin={handleLogin}
+          responseError={responseError}
         />
         <Register
           isOpen={isSignUpPopupOpen}
           onClose={closeAllPopups}
           onSignInRedirect={handleSignInRedirect}
-          onSignUpSubmit={handleSignUpSubmit}
+          onRegister={handleRegister}
+          responseError={responseError}
         />
         <PopupConfirm
           isOpen={isConfirmPopupOpen}
@@ -173,8 +295,8 @@ function App() {
           name="confirm"
         />
         <Footer />
-      </div>
-    </CurrentUserContext.Provider>
+      </CurrentUserContext.Provider>
+    </div>
   );
 }
 

@@ -1,21 +1,35 @@
+import React from "react";
 import "./CardLabel.css";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import bookmark from "../../images/bookmark-black.svg";
 import bookmarkBlue from "../../images/bookmark-blue.svg";
 import trashcan from "../../images/trash-black.svg";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 
-function CardLabel({ loggedIn }) {
+function CardLabel({ loggedIn, onSave, onDelete, card, getCardId }) {
+  const currentUser = React.useContext(CurrentUserContext);
   const isMain = useLocation().pathname === "/";
   const [isMarked, setIsMarked] = useState(false);
 
-  function handleBookmarkClick() {
-    loggedIn && setIsMarked((isMarked) => !isMarked);
+  React.useEffect(() => {
+    currentUser.articles &&
+      currentUser.articles.some((item) => item.title === card.title) &&
+      setIsMarked(true);
+  }, [currentUser, card.title]);
+
+  function handleBookmarkClick(e) {
+    e.stopPropagation();
+    if (loggedIn && isMain) {
+      !isMarked ? onSave(card) : onDelete(getCardId());
+      setIsMarked((isMarked) => !isMarked);
+    } else if (!isMain) {
+      onDelete(getCardId());
+    }
   }
-  // loggedIn = true;
   return (
     <>
-      <div className="label label_right">
+      {/* <div className="label label_right">
         <div className="label__popup">
           {isMain ? "Sign in to save articles" : "Remove from saved"}
         </div>
@@ -38,10 +52,47 @@ function CardLabel({ loggedIn }) {
             <img className="label__icon" src={trashcan} alt="Trash icon" />
           )}
         </button>
-      </div>
+      </div> */}
+      {isMain ? (
+        <div className="label label_right">
+          {!loggedIn && (
+            <div className="label__popup">
+              <span>Sign in to save articles</span>
+            </div>
+          )}
+          <button
+            className="label__button"
+            onClick={handleBookmarkClick}
+            type="button"
+          >
+            {!isMarked ? (
+              <img className="label__icon" src={bookmark} alt="Bookmark icon" />
+            ) : (
+              <img
+                className="label__icon_marked"
+                src={bookmarkBlue}
+                alt="Marked Bookmark icon"
+              />
+            )}
+          </button>
+        </div>
+      ) : (
+        <div className="label label_right">
+          <div className="label__popup">
+            <span>Remove from saved</span>
+          </div>
+          <button
+            className="label__button"
+            onClick={handleBookmarkClick}
+            type="button"
+          >
+            <img className="label__icon" src={trashcan} alt="Trash icon" />
+          </button>
+        </div>
+      )}
       {!isMain && (
         <div className="label label__left">
-          <span className="label__text">Placeholder</span>
+          <span className="label__text">{card.keyword}</span>
         </div>
       )}
     </>
