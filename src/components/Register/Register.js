@@ -1,9 +1,19 @@
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
+import { useFormAndValidate } from "../../hooks/useFormAndValidate";
 
-function Register({ isOpen, onClose, onSignUpSubmit, onSignInRedirect }) {
+function Register({
+  isOpen,
+  onClose,
+  onRegister,
+  onSignInRedirect,
+  responseError,
+}) {
+  const { values, errors, isNoErrors, handleChange } = useFormAndValidate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSignUpSubmit();
+    if (isNoErrors) {
+      onRegister(values);
+    }
   };
   return (
     <PopupWithForm
@@ -16,50 +26,50 @@ function Register({ isOpen, onClose, onSignUpSubmit, onSignInRedirect }) {
       <label className="popup__label">
         Email
         <input
-          id="email-register-input"
+          value={values.email || ""}
+          onChange={handleChange}
           name="email"
           className="popup__input"
-          type="email"
-          placeholder="Enter email"
+          type={"email"}
+          placeholder={"Enter email"}
           required
         ></input>
       </label>
-      <span className="popup__input-error">Invalid email address</span>
+      <span className="popup__input-error">{errors.email}</span>
       <label className="popup__label">
         Password
         <input
-          id="password-register-input"
+          value={values.password || ""}
+          onChange={handleChange}
           name="password"
           className="popup__input"
-          type="password"
-          placeholder="Enter password"
+          type={"password"}
+          placeholder={"Enter password"}
           minLength="6"
           required
         ></input>
       </label>
-      <span className="popup__input-error">
-        Please use at least 6 characters.
-      </span>
+      <span className="popup__input-error">{errors.password}</span>
       <label className="popup__label">
         Username
         <input
-          id="username-input"
+          value={values.username || ""}
+          onChange={handleChange}
           name="username"
           className="popup__input"
-          type="string"
-          placeholder="Enter your username"
+          type={"string"}
+          placeholder={"Enter your username"}
           minLength="2"
           required
         ></input>
       </label>
-      <span className="popup__input-error">
-        Please use at least 2 characters.
-      </span>
-      <span className="popup__response-error">This email is not available</span>
+      <span className="popup__input-error">{errors.username}</span>
+      {responseError && (
+        <span className="popup__response-error">{responseError}</span>
+      )}
       <button
         className="popup__submit-button"
         type="submit"
-        onClick={handleSubmit}
       >
         Sign up
       </button>

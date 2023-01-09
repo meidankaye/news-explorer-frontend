@@ -2,14 +2,19 @@ import "./HeaderButton.css";
 import logoutWhite from "../../images/logoutwhite.svg";
 import logoutBlack from "../../images/logoutblack.svg";
 
-function HeaderButton({ loggedIn, theme, onHeaderButtonClick, onSignOut }) {
-  // loggedIn = true;
+function HeaderButton({
+  loggedIn,
+  theme,
+  currentUser,
+  onHeaderButtonClick,
+  onSignOut,
+}) {
   return loggedIn ? (
     <button
       className={`header-button ${!theme ? "header-button_dark" : ""}`}
       onClick={onSignOut}
     >
-      <span className="header-button__username">Elise</span>
+      <span className="header-button__username">{currentUser.name}</span>
       <img
         className="header-button__image"
         src={theme ? logoutWhite : logoutBlack}
