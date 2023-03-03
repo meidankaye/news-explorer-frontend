@@ -1,4 +1,4 @@
-const BASE_URL = "https://api.meidan-news-explorer.students.nomoredomainssbs.ru";
+const BASE_URL = "https://news-explorer-api-75a9.onrender.com";
 
 const checkResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
