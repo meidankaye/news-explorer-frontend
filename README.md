@@ -1,4 +1,4 @@
-[Link to the News Explorer Web Application](https://meidan-news-explorer.students.nomoredomainssbs.ru/)
+[Link to the News Explorer Web Application](https://news-explorer-3yts.onrender.com/)
 
 [Backend repository](https://github.com/meidankaye/news-explorer-api)
 
