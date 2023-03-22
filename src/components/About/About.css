@@ -8,6 +8,8 @@
   border-radius: 100%;
   object-fit: contain;
   object-position: center;
+  max-height: 464px;
+  max-width: 464px;
 }
 
 .about__content {

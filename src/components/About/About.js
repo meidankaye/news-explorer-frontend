@@ -1,5 +1,5 @@
 import "./About.css";
-import myImage from "../../images/placeholder.png";
+import myImage from "../../images/ProfileCircle.png";
 
 function About() {
   return (
@@ -8,12 +8,10 @@ function About() {
       <article className="about__content">
         <h2 className="about__title">About the author</h2>
         <p className="about__text">
-          This block describes the project author. Here you should indicate your
-          name, what you do, and which development technologies you know.
+          Hi! I'm Meidan Kaye, a Full Stack Web Developer from Netanya, Israel, fluent in Javascript, HTML5, CSS3, React, Node.js, Express & MongoDB
         </p>
         <p className="about__text">
-          You can also talk about your experience with Practicum, what you
-          learned there, and how you can help potential customers.
+          I've graduated from the Practicum100 Web Development training with this web application as my final project! Hope that it will help everyone keep up with the news.
         </p>
       </article>
     </section>

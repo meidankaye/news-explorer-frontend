@@ -1,6 +1,6 @@
 import "./Footer.css";
 import githubLogo from "../../images/github-logo.svg";
-import fbLogo from "../../images/fb-logo.svg";
+import linkedInLogo from "../../images/linkedin-logo.svg";
 
 function Footer() {
   return (
@@ -30,11 +30,11 @@ function Footer() {
           </a>
           <a
             className="footer__link footer__link-social"
-            href="placeholder"
+            href="https://www.linkedin.com/in/meidan-kaye-2a3b6817a/"
             target={"_blank"}
             rel="noreferrer"
           >
-            <img src={fbLogo} alt="Facebook logo" />
+            <img src={linkedInLogo} alt="Facebook logo" />
           </a>
         </div>
       </nav>
